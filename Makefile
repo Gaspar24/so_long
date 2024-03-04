@@ -2,7 +2,7 @@ NAME = so_long
 
 MLX_FLAGS = -L/usr/X11/lib -lX11 -lXext
 
-SRC = so_long.c map.c actions.c helper_functions.c utils.c
+SRC = so_long.c map.c actions.c helper_functions.c utils.c check_map.c
 
 OBJ = $(SRS:.c=.o)
 
