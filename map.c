@@ -6,7 +6,7 @@
 /*   By: msacaliu <msacaliu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 16:34:36 by msacaliu          #+#    #+#             */
-/*   Updated: 2024/03/04 10:35:05 by msacaliu         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:33:50 by msacaliu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void put_player(t_data *data)
 
     int x = 0;
     int y = 0;
-    data->player = mlx_xpm_file_to_image(data->mlx_ptr,"./textures/ninja1.xpm",&img_width, &img_height);
+    data->player = mlx_xpm_file_to_image(data->mlx_ptr,"./textures/ninja5.xpm",&img_width, &img_height);
     
     int i = 0;
     int j;
@@ -85,9 +85,7 @@ void put_player(t_data *data)
         while(data->map2[i][j] != '\0')
         {
             if(data->map2[i][j] == 'P')
-            {
                 mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,data->player,x,y);
-            }
             x += 50;
             j++;
         }
@@ -132,7 +130,7 @@ void draw_coin(t_data *data)
 	int x = 0;
 	int y = 0;
     int i = 0;
-	data->coin = mlx_xpm_file_to_image(data->mlx_ptr,"./textures/coin.xpm",&img_width, &img_height);
+	data->coin = mlx_xpm_file_to_image(data->mlx_ptr,"./textures/coin2.xpm",&img_width, &img_height);
 	i = 0;
 	int j;
 	while (data->map2[i] != NULL)
