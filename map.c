@@ -6,7 +6,7 @@
 /*   By: msacaliu <msacaliu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 16:34:36 by msacaliu          #+#    #+#             */
-/*   Updated: 2024/03/05 15:33:50 by msacaliu         ###   ########.fr       */
+/*   Updated: 2024/03/06 10:57:50 by msacaliu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ void put_player(t_data *data)
 
     int x = 0;
     int y = 0;
+    data->player_right = mlx_xpm_file_to_image(data->mlx_ptr,"./textures/right_ninja.xpm",&img_width, &img_height);
     data->player = mlx_xpm_file_to_image(data->mlx_ptr,"./textures/ninja5.xpm",&img_width, &img_height);
-    
+    data->player_up = mlx_xpm_file_to_image(data->mlx_ptr,"./textures/up_ninja.xpm",&img_width, &img_height);
+    data->player_down = mlx_xpm_file_to_image(data->mlx_ptr,"./textures/down_ninja.xpm",&img_width, &img_height);
     int i = 0;
     int j;
 	
@@ -84,10 +86,9 @@ void put_player(t_data *data)
         j = 0;
         while(data->map2[i][j] != '\0')
         {
-            if(data->map2[i][j] == 'P')
+            if(data->map2[i][j++] == 'P')
                 mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,data->player,x,y);
             x += 50;
-            j++;
         }
         y += 50;
         x = 0;

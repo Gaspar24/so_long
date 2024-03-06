@@ -6,7 +6,7 @@
 /*   By: msacaliu <msacaliu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:37:55 by msacaliu          #+#    #+#             */
-/*   Updated: 2024/03/05 13:28:14 by msacaliu         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:40:26 by msacaliu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,41 +98,40 @@ int	check_walls(t_data *data)
 	return(0);
 }
 
-
-void dfs(int x, int y, char **map, int *found_exit) {
-    ft_printf("x : %d", x);
-    ft_printf(" y : %d\n", y);
-
-    if(x < 0 || y < 0 || x >= find_width(map) || y >= find_height(map) )
+void dfs(int x, int y, int width, int height, char **map, int *found_exit) {
+    if(x < 0 || y < 0 || x >= width || y >= height)
         return;
-	// ft_printf("x : %d", x);
-    // ft_printf(" y : %d\n", y);
-    if(map[x][y] == 'E') {
+    if(map[y][x] == '1' || map[y][x] == 'V')
+        return;
+    if(map[y][x] == 'E') {
         *found_exit = 1;
         return;
     }
-
-    // map[x][y] = 'V';
-
-    dfs(x + 1, y, map, found_exit);
-    dfs(x - 1, y, map, found_exit);
-    dfs(x, y + 1, map, found_exit);
-    dfs(x, y - 1, map, found_exit);
+    map[y][x] = 'V';
+    dfs(x + 1, y, width, height, map, found_exit); 
+    dfs(x - 1, y, width, height, map, found_exit); 
+    dfs(x, y + 1, width, height, map, found_exit); 
+    dfs(x, y - 1, width, height, map, found_exit); 
 }
 
 int check_path_to_exit(t_data *data) {
     int found_exit = 0;
-	find_player_coordinates(data);
+    find_player_coordinates(data);
+    int width = find_width(data->map2);
+    int height = find_height(data->map2);
     int start_x = data->x / 50;
     int start_y = data->y / 50;
-    dfs(start_x, start_y, data->map2, &found_exit);
-	// ft_printf("x : %d",start_x);
-	// ft_printf(" y :%d\n",start_y);
-    if(!found_exit)
-	{
-		ft_printf("No exit found, invalid map\n");
-		exit(1);
-	}
+    char **map_copy = copy_map(data);
+    dfs(start_x, start_y, width, height, map_copy, &found_exit);
 
-	return (0);
+    if(!found_exit)
+    {
+        ft_printf("No exit found, invalid map\n");
+        exit(1);
+    }
+    for (int i = 0; i < height; i++) {
+        free(map_copy[i]);
+    }
+    free(map_copy);
+    return (0);
 }

@@ -6,13 +6,29 @@
 /*   By: msacaliu <msacaliu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 11:16:56 by msacaliu          #+#    #+#             */
-/*   Updated: 2024/03/04 11:49:45 by msacaliu         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:17:00 by msacaliu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "so_long.h"
 
+char **copy_map(t_data *data)
+{
+    int height;
+    int width;
+    
+    height = find_height(data->map2);
+    width = find_width(data->map2);
+    char **copy = malloc(height * sizeof(char *));
+    for (int i = 0; i < height; i++) {
+        copy[i] = malloc(width * sizeof(char));
+        for (int j = 0; j < width; j++) {
+            copy[i][j] = data->map2[i][j];
+        }
+    }
+    return copy;
+}
 
 char **read_map(const char *filename)
 {
@@ -58,6 +74,8 @@ int	main(int argc, char *argv[])
 	data.map = ft_strjoin(data.map, ".ber");
 	data.map2 = read_map(data.map);
     validate_map(&data);
+    count_coins(&data);
+    ft_printf("total coins %d\n",data.coins_colected);
     data.moves = 0;
     data.coins = 0;
     data.mlx_ptr = mlx_init();
@@ -69,17 +87,13 @@ int	main(int argc, char *argv[])
         free(data.win_ptr);
         return(1);
     }
+    // char *movess = ft_itoa(data.moves);
     put_player(&data);
-    redraw_image(&data);
+    redraw_image(&data,'a');
     mlx_hook(data.win_ptr, 17, 0, close_window, &data);
-    mlx_string_put(data.mlx_ptr, data.win_ptr, (find_width(data.map2) *50) / 3, (50 + find_height(data.map2) * 50)- 20, 0x00FF00,"MOVES DONE:");
-    mlx_string_put(data.mlx_ptr, data.win_ptr, (find_width(data.map2) *50) / 2, (50 + find_height(data.map2) * 50)- 20, 0x00FF00,"COINS COLECTED:");
     mlx_key_hook(data.win_ptr, handle_input, &data);
     // mlx_loop_hook(data.mlx_ptr, redraw_image, &data);
 	mlx_loop(data.mlx_ptr);
 }
 
 
-// 	mlx_hook(cube->screen.win, 2, 1L << 0, key_press, cube);
-	// mlx_hook(cube->screen.win, 3, 1L << 1, key_release, cube);
-	// mlx_hook(cube->screen.win, 17, 0, close_window, cube);

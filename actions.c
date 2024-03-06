@@ -6,7 +6,7 @@
 /*   By: msacaliu <msacaliu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 16:38:44 by msacaliu          #+#    #+#             */
-/*   Updated: 2024/03/04 10:17:17 by msacaliu         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:18:29 by msacaliu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,26 @@ int move_character(int keysym, t_data *data)
 		new_x -= 50;
 	if(keysym == 'd')
 		new_x += 50;
-	if (data->map2[new_y / 50][new_x / 50] == 'E')
-		end_game(data, new_x,new_y);
+	if (data->map2[new_y / 50][new_x / 50] == 'E' )
+	{
+		if(data->coins == data->coins_colected)
+			end_game(data, new_x,new_y);
+		else
+			ft_printf("Not all coins colected!\n");
+	}
+
 	if (data->map2[new_y / 50][new_x / 50] == 'C')
-		data->coins += 1;
-	if (data->map2[new_y / 50][new_x / 50] != '1') 
 	{
 		data->map2[new_y / 50][new_x / 50] = '0';
+		data->coins += 1;
+	}
+		
+	if (data->map2[new_y / 50][new_x / 50] != '1') 
+	{
 		data->x = new_x;
 		data->y = new_y;
 		ft_printf("MOVES:%d          Coins: %d \n",data->moves += 1, data->coins);
-		// mlx_string_put(data->mlx_ptr, data->win_ptr, (find_width(data->map2) *50) / 3, (50 + find_height(data->map2) * 50)- 20, 0x00FF00,ft_itoa(data->moves));
-		redraw_image(data);
-		// count_coins(data);
-		// ft_printf("c number: %d",data->coins_colected);
+		redraw_image(data,keysym);
 	}
 	return (0);
 }

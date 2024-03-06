@@ -6,7 +6,7 @@
 /*   By: msacaliu <msacaliu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:12:51 by msacaliu          #+#    #+#             */
-/*   Updated: 2024/03/04 11:49:29 by msacaliu         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:45:45 by msacaliu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #define HEIGHT 100
 
 #include "./minilibx-linux/mlx.h"
-#include "../libftprintf/ft_printf.h"
+#include "./lib/libftprintf/ft_printf.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -32,6 +32,9 @@ typedef struct	s_data {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void 	*player;
+	void	*player_right;
+	void	*player_up;
+	void	*player_down;
 	void	*wall;
 	void	*floor;
 	void	*coin;
@@ -49,7 +52,7 @@ void 	draw_floor(t_data *data);
 void 	draw_wall(t_data *data);
 void	put_player(t_data *data);
 void	find_player_coordinates(t_data *data);
-int	  	redraw_image(t_data *data);
+int	  	redraw_image(t_data *data, int keysim);
 int 	handle_input(int keysym, t_data *data);
 void    end_game(t_data *data, int new_x, int new_y);
 int 	move_character(int keysym ,t_data *data);
@@ -68,5 +71,6 @@ int		check_map_characters(t_data *data);
 int		check_walls(t_data *data);
 int 	check_path_to_exit(t_data *data);
 void 	validate_map(t_data *data);
-// char	*ft_itoa(int n);
+char 	**copy_map(t_data *data);
+char	*ft_itoa(int n);
 #endif

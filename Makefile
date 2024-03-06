@@ -9,8 +9,8 @@ OBJ = $(SRS:.c=.o)
 MLX_DIR = ./minilibx-linux
 
 MLX = ./minilibx-linux/libmlx.a
-FT_PRINTF = /home/msacaliu/42_projects/libftprintf/libftprintf.a
-PRINTF_DIR =/home/msacaliu/42_projects/libftprintf
+FT_PRINTF = ./lib/libftprintf/libftprintf.a
+PRINTF_DIR =./lib/libftprintf
 
 
 all: $(NAME)

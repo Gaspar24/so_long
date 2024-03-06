@@ -6,7 +6,7 @@
 /*   By: msacaliu <msacaliu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 11:54:11 by msacaliu          #+#    #+#             */
-/*   Updated: 2024/02/28 15:41:44 by msacaliu         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:44:22 by msacaliu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,46 +85,46 @@ char *ft_strcpy(char *dest, char *src)
 	return(dest);
 }
 
-// int	count_digitss(int n)
-// {
-// 	int	count;
+int	count_digitss(int n)
+{
+	int	count;
 
-// 	count = 0;
-// 	if (n <= 0)
-// 		count += 1;
-// 	while (n)
-// 	{
-// 		n = n / 10;
-// 		count++;
-// 	}
-// 	return (count);
-// }
+	count = 0;
+	if (n <= 0)
+		count += 1;
+	while (n)
+	{
+		n = n / 10;
+		count++;
+	}
+	return (count);
+}
 
-// char	*ft_itoa(int n)
-// {
-// 	char		*number_str;
-// 	int			d_count;
-// 	int			i;
-// 	long long	temp;
+char	*ft_itoa(int n)
+{
+	char		*number_str;
+	int			d_count;
+	int			i;
+	long long	temp;
 
-// 	d_count = count_digitss(n);
-// 	temp = n;
-// 	i = d_count;
-// 	number_str = (char *)malloc((d_count +1) * sizeof(char));
-// 	if (!number_str)
-// 		return (NULL);
-// 	if (temp == 0)
-// 		number_str[0] = '0';
-// 	while (temp != 0)
-// 	{
-// 		if (temp < 0)
-// 		{
-// 			number_str[0] = '-';
-// 			temp = -temp;
-// 		}
-// 		number_str[(i--) - 1] = (temp % 10) + '0';
-// 		temp = temp / 10;
-// 	}
-// 	number_str[d_count] = '\0';
-// 	return (number_str);
-// }
+	d_count = count_digitss(n);
+	temp = n;
+	i = d_count;
+	number_str = (char *)malloc((d_count +1) * sizeof(char));
+	if (!number_str)
+		return (NULL);
+	if (temp == 0)
+		number_str[0] = '0';
+	while (temp != 0)
+	{
+		if (temp < 0)
+		{
+			number_str[0] = '-';
+			temp = -temp;
+		}
+		number_str[(i--) - 1] = (temp % 10) + '0';
+		temp = temp / 10;
+	}
+	number_str[d_count] = '\0';
+	return (number_str);
+}
