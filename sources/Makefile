@@ -2,15 +2,15 @@ NAME = so_long
 
 MLX_FLAGS = -L/usr/X11/lib -lX11 -lXext
 
-SRC = so_long.c map.c actions.c helper_functions.c utils.c check_map.c
+SRC = so_long.c map.c actions.c helper_functions.c utils.c check_map.c utils2.0.c
 
 OBJ = $(SRS:.c=.o)
 
 MLX_DIR = ./minilibx-linux
 
-MLX = ./minilibx-linux/libmlx.a
-FT_PRINTF = ./lib/libftprintf/libftprintf.a
-PRINTF_DIR =./lib/libftprintf
+MLX = ../minilibx-linux/libmlx.a
+FT_PRINTF = ../lib/libftprintf/libftprintf.a
+PRINTF_DIR =../lib/libftprintf
 
 
 all: $(NAME)

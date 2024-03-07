@@ -6,16 +6,19 @@
 /*   By: msacaliu <msacaliu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 11:54:11 by msacaliu          #+#    #+#             */
-/*   Updated: 2024/03/06 13:44:22 by msacaliu         ###   ########.fr       */
+/*   Updated: 2024/03/07 13:14:51 by msacaliu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int find_width(char **map)
+int	find_width(char **map)
 {
-	int i = 0;
-	int j = 0;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
 	while (map[i] != NULL)
 	{
 		while (map[i][j] != '\0')
@@ -27,7 +30,9 @@ int find_width(char **map)
 
 int	find_height(char **map)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (map[i] != NULL)
 		i++;
 	return (i);
@@ -35,13 +40,12 @@ int	find_height(char **map)
 
 int	ft_strlen(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 		i++;
-	return(i);
-	
+	return (i);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -71,60 +75,16 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (new_string);
 }
 
-char *ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(src[i] != '\0')
+	while (src[i] != '\0')
 	{
 		dest[i] = src[i];
 		i++;
 	}
 	dest[i] = '\0';
-	return(dest);
-}
-
-int	count_digitss(int n)
-{
-	int	count;
-
-	count = 0;
-	if (n <= 0)
-		count += 1;
-	while (n)
-	{
-		n = n / 10;
-		count++;
-	}
-	return (count);
-}
-
-char	*ft_itoa(int n)
-{
-	char		*number_str;
-	int			d_count;
-	int			i;
-	long long	temp;
-
-	d_count = count_digitss(n);
-	temp = n;
-	i = d_count;
-	number_str = (char *)malloc((d_count +1) * sizeof(char));
-	if (!number_str)
-		return (NULL);
-	if (temp == 0)
-		number_str[0] = '0';
-	while (temp != 0)
-	{
-		if (temp < 0)
-		{
-			number_str[0] = '-';
-			temp = -temp;
-		}
-		number_str[(i--) - 1] = (temp % 10) + '0';
-		temp = temp / 10;
-	}
-	number_str[d_count] = '\0';
-	return (number_str);
+	return (dest);
 }
