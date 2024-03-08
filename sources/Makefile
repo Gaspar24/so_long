@@ -1,8 +1,10 @@
 NAME = so_long
 
-MLX_FLAGS = -L/usr/X11/lib -lX11 -lXext
+FLAGS = -Wall -Wextra -Werror -g
 
-SRC = so_long.c map.c actions.c helper_functions.c utils.c check_map.c utils2.0.c
+MLX_FLAGS = -L/usr/X11/lib -lX11 -lXext
+#-fsanitize=address -g 
+SRC = so_long.c map.c actions.c helper_functions.c utils.c check_map.c utils2.0.c utils3.0.c
 
 OBJ = $(SRS:.c=.o)
 
@@ -17,7 +19,7 @@ all: $(NAME)
 
 $(NAME): $(MLX) $(OBJ)
 	ar rc $(NAME) $(OBJ)
-	cc $(MLX_FLAGS) $(SRC) -o $(NAME) $(MLX) $(FT_PRINTF) 
+	cc $(MLX_FLAGS) $(FLAGS) $(SRC) -o $(NAME) $(MLX) $(FT_PRINTF) 
 	rm -rf $(NAME).o
 
 $(MLX):	

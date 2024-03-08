@@ -6,7 +6,7 @@
 /*   By: msacaliu <msacaliu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 11:16:56 by msacaliu          #+#    #+#             */
-/*   Updated: 2024/03/07 15:03:20 by msacaliu         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:25:07 by msacaliu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ char	**init_map(void)
 	while (i < MAX_LINES)
 	{
 		map[i] = malloc((MAX_LINE_LENGTH + 1) * sizeof(char));
+		if (!map[i])
+		{
+			while (i >= 0)
+				free(map[i--]);
+			free(map);
+			ft_printf("Failed to allocate memory\n");
+			exit(1);
+		}
 		i++;
 	}
 	return (map);
@@ -104,13 +112,9 @@ int	main(int argc, char *argv[])
 	t_data		data;
 	t_dfs_data	characters;
 
-	data.map = ft_strjoin("./maps/", argv[1]);
-	data.map = ft_strjoin(data.map, ".ber");
-	data.map2 = read_map(data.map);
-	validate_map(&data, &characters);
-	count_coins(&data);
-	data.moves = 0;
-	data.coins = 0;
+	(void)argc;
+	define_characters(&characters);
+	startup(&data, &characters, argv[1]);
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		return (1);
@@ -126,4 +130,5 @@ int	main(int argc, char *argv[])
 	mlx_hook(data.win_ptr, 17, 0, close_window, &data);
 	mlx_key_hook(data.win_ptr, handle_input, &data);
 	mlx_loop(data.mlx_ptr);
+	free_map(data.map2, &data);
 }

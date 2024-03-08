@@ -6,12 +6,11 @@
 /*   By: msacaliu <msacaliu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:37:55 by msacaliu          #+#    #+#             */
-/*   Updated: 2024/03/07 14:43:16 by msacaliu         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:46:29 by msacaliu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdbool.h>
 
 int	check_if_rectangular_map(t_data *data)
 {
@@ -33,7 +32,7 @@ int	check_map_characters(t_data *data, t_dfs_data *characters)
 	int	i[2];
 
 	i[X] = 0;
-	define_characters();
+	define_characters(characters);
 	while (data->map2[i[X]] != NULL)
 	{
 		i[Y] = 0;
@@ -45,8 +44,6 @@ int	check_map_characters(t_data *data, t_dfs_data *characters)
 				characters->has_e += 1;
 			if (data->map2[i[X]][i[Y]] == '1')
 				characters->has_1 = 1;
-			if (data->map2[i[X]][i[Y]] == '0')
-				characters->has_0 = 1;
 			if (data->map2[i[X]][i[Y]] == 'C')
 				characters->has_c = 1;
 			i[Y]++;
@@ -61,8 +58,6 @@ int	check_walls(t_data *data)
 {
 	int	i;
 	int	j;
-	int	width;
-	int	height;
 
 	i = 0;
 	while (data->map2[i] != NULL)
@@ -97,6 +92,8 @@ void	dfs(t_data *data, int x, int y, char **map)
 		return ;
 	if (map[y][x] == '1' || map[y][x] == 'V')
 		return ;
+	if (map[y][x] == 'C')
+		data->coins_posible_to_reach += 1;
 	if (map[y][x] == 'E')
 	{
 		data->found_exit = 1;
@@ -118,18 +115,18 @@ int	check_path_to_exit(t_data *data)
 
 	i = 0;
 	data->found_exit = 0;
+	data->coins_posible_to_reach = 0;
 	find_player_coordinates(data);
 	start_x = data->x / 50;
 	start_y = data->y / 50;
 	map_copy = copy_map(data);
+	count_coins(data);
 	dfs(data, start_x, start_y, map_copy);
-	if (!data->found_exit)
+	if (!data->found_exit || data->coins_posible_to_reach
+		!= data->coins_colected)
 	{
-		ft_printf("No exit found, invalid map\n");
+		ft_printf("Invalid map\n");
 		exit(1);
 	}
-	while (i < find_height(data->map2))
-		free(map_copy[i++]);
-	free(map_copy);
 	return (0);
 }

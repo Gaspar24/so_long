@@ -6,7 +6,7 @@
 /*   By: msacaliu <msacaliu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:04:37 by msacaliu          #+#    #+#             */
-/*   Updated: 2024/03/07 14:49:50 by msacaliu         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:19:58 by msacaliu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	end_game(t_data *data, int new_x, int new_y)
 	data->y = new_y;
 	ft_printf("You foud the exit!!\n");
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
 	exit(0);
 }
 
@@ -70,6 +69,7 @@ void	validate_map(t_data *data, t_dfs_data *characters)
 	check_if_all_rows_are_equal(data);
 	check_if_rectangular_map(data);
 	check_map_characters(data, characters);
+	check_map_interior(data);
 	check_walls(data);
 	check_path_to_exit(data);
 }

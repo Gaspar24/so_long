@@ -6,7 +6,7 @@
 /*   By: msacaliu <msacaliu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:12:51 by msacaliu          #+#    #+#             */
-/*   Updated: 2024/03/07 15:03:06 by msacaliu         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:29:46 by msacaliu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_dfs_data
 	int	has_p;
 	int	has_e;
 	int	has_1;
-	int	has_0;
 	int	has_c;
 }	t_dfs_data;
 
@@ -57,6 +56,7 @@ typedef struct s_data
 	int		coins;
 	int		coins_colected;
 	int		found_exit;
+	int		coins_posible_to_reach;
 
 }				t_data;
 
@@ -84,9 +84,13 @@ int		check_map_characters(t_data *data, t_dfs_data *characters);
 int		check_walls(t_data *data);
 int		check_path_to_exit(t_data *data);
 void	check_characters_nb(t_dfs_data *characters);
-void	define_characters(void);
 void	validate_map(t_data *data, t_dfs_data *characters);
 char	**copy_map(t_data *data);
 void	check_if_all_rows_are_equal(t_data *data);
+void	check_map_interior(t_data *data);
+void	startup(t_data *data, t_dfs_data *characters, char *str);
+char	*ft_strchr(const char *s, int c);
+void	free_map(char **map, t_data *data);
+void	define_characters(t_dfs_data *characters);
 
 #endif
